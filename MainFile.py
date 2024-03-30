@@ -1,4 +1,4 @@
-#======================== IMPORT PACKAGES ===========================
+
 
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -7,8 +7,6 @@ import cv2
 import matplotlib.image as mpimg
 import streamlit as st
 from PIL import Image
-
-#====================== READ A INPUT IMAGE =========================
 
 
 filename = askopenfilename()
@@ -19,10 +17,6 @@ plt.axis ('off')
 plt.show()
 
 
-#============================ PREPROCESS =================================
-
-#==== RESIZE IMAGE ====
-
 resized_image = cv2.resize(inpimg,(300,300))
 img_resize_orig = cv2.resize(inpimg,((50, 50)))
 
@@ -32,8 +26,6 @@ plt.imshow(resized_image)
 plt.axis ('off')
 plt.show()
 
-         
-#==== GRAYSCALE IMAGE ====
 
 try:            
     gray1 = cv2.cvtColor(img_resize_orig, cv2.COLOR_BGR2GRAY)
@@ -47,10 +39,6 @@ plt.imshow(gray1)
 plt.axis ('off')
 plt.show()
 
-# ============== FEATURE EXTRACTION ==============
-
-
-#=== MEAN STD DEVIATION ===
 
 mean_val = np.mean(gray1)
 median_val = np.median(gray1)
@@ -63,8 +51,6 @@ print("====================================")
 print()
 print(features_extraction)
 
-
-# ==== LBP =========
 
 import cv2
 import numpy as np
@@ -80,7 +66,6 @@ def find_pixel(imgg, center, x, y):
         pass
     return new_value
    
-# Function for calculating LBP
 def lbp_calculated_pixel(imgg, x, y):
     center = imgg[x][y]
     val_ar = []
@@ -112,11 +97,6 @@ for i in range(0, height):
 plt.imshow(img_lbp, cmap ="gray")
 plt.title("LBP")
 plt.show()
-   
-
-# ====================== IMAGE SPLITTING ================
-
-#==== TRAIN DATA FEATURES ====
 
 import pickle
 
@@ -143,12 +123,6 @@ print("Total No.of Train Data      = ", len(x_train))
 print()
 print("Total No.of Test Data       = ", len(x_test))
 print()
-
-
-
-# ====================== CLASSIFICATION ================
-
-# ==== CNN ==
 
 from keras.utils import to_categorical
 
@@ -178,11 +152,9 @@ from keras.layers import Dropout
 from keras.models import Sequential
 
 
-# initialize the model
 model=Sequential()
 
 
-#CNN layes 
 model.add(Conv2D(filters=16,kernel_size=2,padding="same",activation="relu",input_shape=(50,50,3)))
 model.add(MaxPooling2D(pool_size=2))
 
@@ -201,17 +173,14 @@ model.add(Dropout(0.2))
 
 model.add(Dense(10,activation="softmax"))
 
-#summary the model 
 model.summary()
 
-#compile the model 
 model.compile(loss='binary_crossentropy', optimizer='adam')
 y_train1=np.array(y_train)
 
 train_Y_one_hot = to_categorical(y_train1)
 test_Y_one_hot = to_categorical(y_test)
 
-#fit the model 
 history=model.fit(x_train2,train_Y_one_hot,batch_size=2,epochs=10,verbose=1)        
         
 loss=history.history['loss']
@@ -231,9 +200,6 @@ print()
 print("2. Error rate   =", loss ,'%')
 print()
 
-
-
-# =============== IMAGE PREDICTION ============
 
 import os
 
@@ -349,11 +315,6 @@ elif labels1[zz[0][0]] == 9:
     print('-------------------------')       
     a='Tomato'  
 
-
-#============================= 5.DATA SELECTION ===============================
-
-#=== READ A DATASET ====
-
 import pandas as pd
 
 data_frame=pd.read_excel("data set 2.xlsx")
@@ -362,12 +323,6 @@ print("================== Data Selection ===================")
 print("-------------------------------------------------------")
 print()
 print(data_frame.head(20))
-
-
-#==========================  6.DATA PREPROCESSING ==============================
-
-
-#=== CHECK MISSING VALUES ===
 
 print("=====================================================")
 print("                    Preprocessing                  ")
@@ -381,8 +336,6 @@ print(data_frame.isnull().sum())
 print()
 
 data_label=data_frame['Name']
-
-#==== LABEL ENCODING ====
 
 from sklearn import preprocessing 
 
@@ -438,8 +391,6 @@ print("4.Calorie value       = ",Req_data_cal)
 print()
 print("5.Protein value       = ",Req_data_p)
 
-
-#=============================== VISUALIZATIOn =================================
 
 
 print()

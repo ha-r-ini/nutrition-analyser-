@@ -3,7 +3,6 @@ import streamlit as st
 import base64
 import cv2
 
-# ================ Background image ===
 
 st.markdown(f'<h1 style="color:#000000;text-align: center;font-size:36px;">{"Develop AI powered nutrition analyser for fitness enthusiast for regulating overall fitness goals"}</h1>', unsafe_allow_html=True)
 

@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 import matplotlib.image as mpimg
 
-# === Carrot 
 
 app1_data = os.listdir('Data/Apple/')
 
